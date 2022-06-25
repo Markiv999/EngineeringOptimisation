@@ -1,4 +1,4 @@
-function [W_n] = NozzleWeight(Pc,Ae,At,Ac,gamma,test)
+function [W_n] = NozzleWeight(Pc,Ae,At,Ac,gamma,Pe,test)
 %NOZZLEWEIGHT Calculates Nozzle Weight as a function of expansion ratio,
 %thickness and
 %   Assumptions: Thin shell theory to estimate the thickness at throat and
@@ -15,7 +15,7 @@ test=1;
     At=pi; %m2
     Ae=4*pi; %m2
     gamma=1.23;%sp heat ratio
-   
+    Pe=0;% perfect expansion in vaccuum
     end
 %% Constants for Nozzle
     f    = 1.5; %Factor of safety
@@ -26,7 +26,7 @@ test=1;
 
 Pt=Pc*( 2/ (gamma+1) )^( (gamma)/(gamma+1) );
 
-Pe=1;
+
 %% Nozzle Weight from Chamber to throat
 
 Rt=sqrt(At/pi);
