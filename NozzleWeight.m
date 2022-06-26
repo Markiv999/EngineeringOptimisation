@@ -10,52 +10,104 @@ function [W_n] = NozzleWeight(Pc,Ae,At,Ac,gamma,Pe,test)
 test=1;
 
     if test==1
-    Ac=1.5*1.5*pi;
-    Pc=50*10^5;%Pa
-    At=pi; %m2
-    Ae=4*pi; %m2
+    Ac=(2.4384/2)*(2.4384/2)*pi;
+    Pc=206.429*10^5%Pa
+    At=0.26162*0.26162*pi; %m2
+    Ae=1.15189*1.15189*pi; %m2
     gamma=1.23;%sp heat ratio
-    Pe=0;% perfect expansion in vaccuum
+    Pe=1.01*10^5;% perfect expansion at sea level
+    rho=8193,2518 ; %material density Kg/m3 [Inconel 718]
     end
 %% Constants for Nozzle
     f    = 1.5; %Factor of safety
-    alpha=12.5;%Divergent half angle deg
-    beta=60;%Convergent half angle deg
-    sigma=600*1000*1000;%N/m2 Ultimate stress of material[steel here]
+    alpha=20;%Divergent half angle deg
+    beta=50;%Convergent half angle deg
+    sigma=1.241056e+9;%N/m2 Ultimate stress of material[Inconel 718]
 %% IRT Calculations
 
-Pt=Pc*( 2/ (gamma+1) )^( (gamma)/(gamma+1) );
+Pt=Pc*( 2/ (gamma+1) )^( (gamma)/(gamma+1) )
 
+%% Chamber Weight
+Rc=sqrt(Ac/pi);
+Rt=sqrt(At/pi);
+tc=1.5*Pc*Rc/sigma;
+%hn1=(Rc-Rt)/tand(beta);
+h= 4.2672 - 3.0734;
+W_c= rho*(pi*( ( (Rc+tc)^2 ) - (Rc^2) ) * h)
 
+%W_c2= rho*(pi*( ( tc^2 + 2*Rc*tc ) * h))
+
+%% Chameber Weight 2
+% Material properties:
+% Haynes 188
+%rho = 8980;  %kg/m3
+%sigma = 748E+06; %Pa
+
+% Chamber pressure:
+p_c = 50E+05;   %Pa
+
+% Chamber radius:
+R_c = 0.265;    %m
+
+% % Chamber length (for cylindrical chamber):
+% L_c = 0.97; %m
+
+% Safety factor:
+j = 1.5;
+
+% Spherical chamber:
+% Chamber volume:
+%V_c = 4/3 * pi * R_c^3; %m3
+%chamber_mass = 1.5 * rho/sigma * j * p_c * V_c;   %kg
+
+% % Cylindrical chamber:
+ V_c = pi * Rc^2 * h; %m3
+ chamber_mass = (2/(h/Rc) + 2) * rho/sigma * j * Pc * V_c   %kg
+
+% Injector (assuming circular):
+A_c = pi * Rc^2;   %m2   
+injector_mass = rho/sigma * j * (1.2 * A_c * Rc * sqrt(Pc*sigma))    %kg
 %% Nozzle Weight from Chamber to throat
 
 Rt=sqrt(At/pi);
-Rp=Rt/cosd(alpha);
+Rp=Rt/cosd(beta);
 
-tt=(Rp*Pt)/sigma;% Throat Thickness m thin shell theory
+tt=(Rp*Pt)/sigma% Throat Thickness m thin shell theory
 
-Rt=sqrt(Ac/pi);
-Rp=Rt/cosd(alpha);
+Rc=sqrt(Ac/pi);
+Rp=Rc/cosd(alpha);
 
-tc=(Rp*Pc)/sigma;% Chamber Thickness thin shell theory
+tc=(Rc*Pc)/sigma% Chamber Thickness thin shell theory
 
 tavg=f*(tt+tc)/2
 
+%% Weight from Volume and Density
+W_n1_volume=(( (1/9)*pi*( (Rc-Rt)/tand(beta) ) ) *( ( 3*tavg*(Rc^2-Rt^2) ) + (3*tavg*(Rc-Rt)) ))*rho;
+
+
+%%
 tavgininch=39.3701*tavg;
 At=1550.0031*At;%inch conversion
 Ac=1550.0031*Ac;%inch conversion
 
 W_n1= ((Ac-At)*tavgininch) / (sind(beta));% From Project RAND
 
+
 %% Nozzle Weight from throat to Exit
 
-Rt=sqrt(Ae/pi);
-Rp=Rt/cosd(alpha);
+Re=sqrt(Ae/pi);
+Rp=Re/cosd(alpha);
 
-te=(Rp*Pe)/sigma;% Exit Thickness thin shell theory
+te=(Rp*Pe)/sigma% Exit Thickness thin shell theory
 
-tavg=f*(tt+te)/2
+tavg=f*(tt+te)/2;
 
+%% Weight from Volume and Density
+W_n2_volume=(( (1/9)*pi*( (Re-Rt)/tand(alpha) ) ) *( ( 3*tavg*(Re^2-Rt^2) ) + (3*tavg*(Re-Rt)) ))*rho;
+
+W_volume=W_n1_volume+W_n2_volume
+
+%%
 tavgininch=39.3701*tavg;
 Ae=1550.0031*Ae;%inch conversion
 W_n2= ((Ae-At)*tavgininch) / (sind(beta));% From Project RAND
@@ -64,7 +116,10 @@ W_n2= ((Ae-At)*tavgininch) / (sind(beta));% From Project RAND
 
 W_n=W_n1+W_n2;%lb
 
-W_n=W_n*0.453592;%lb to Kg
+W_n=W_n*0.453592/9.81%lb to Kg
 
+Wtotal=W_n+W_c
+
+Wvolume=W_c+W_volume
 end
 
