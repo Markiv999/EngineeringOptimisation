@@ -1,4 +1,4 @@
-function [W_total] = NozzleWeight(Pc,Ae,At,Ac,gamma,Pe,test)
+function [Wvolume] = NozzleWeight(Pc,Ae,At,Ac,gamma,Pe,test)
 %NOZZLEWEIGHT Calculates Nozzle Weight as a function of expansion ratio,
 %thickness and
 %   Assumptions: Thin shell theory to estimate the thickness at throat and
@@ -11,15 +11,15 @@ test=1;
 
     if test==1
     Ac=(2.4384/2)*(2.4384/2)*pi;
-    Pc=10*10^5%Pa
-  %  Pc=206.429*10^5%Pa
+    Pc=206.429*10^5%Pa
     At=0.26162*0.26162*pi; %m2
     Ae=1.15189*1.15189*pi; %m2
     gamma=1.23;%sp heat ratio
     Pe=1.01*10^5;% perfect expansion at sea level
-    rho=8193.2518 ; %material density Kg/m3 [Inconel 718]
+    
     end
 %% Constants for Nozzle
+    rho=8193.2518 ; %material density Kg/m3 [Inconel 718]
     f    = 1.5; %Factor of safety
     alpha=25;%Divergent half angle deg
     beta=39.4378;%Convergent half angle deg
@@ -117,10 +117,10 @@ W_n2= ((Ae-At)*tavgininch) / (sind(beta));% From Project RAND
 
 W_n=W_n1+W_n2;%lb
 
-W_n=W_n*0.453592/9.81%lb to Kg
+W_n=W_n*0.453592/9.81;%lb to Kg
 
-Wtotal=W_n+W_c
+Wtotal=W_n+W_c;
 
-Wvolume=W_c+W_volume
+Wvolume=W_c+W_volume;
 end
 
