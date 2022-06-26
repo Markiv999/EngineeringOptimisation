@@ -1,4 +1,4 @@
-function [W_n] = NozzleWeight(Pc,Ae,At,Ac,gamma,Pe,test)
+function [W_total] = NozzleWeight(Pc,Ae,At,Ac,gamma,Pe,test)
 %NOZZLEWEIGHT Calculates Nozzle Weight as a function of expansion ratio,
 %thickness and
 %   Assumptions: Thin shell theory to estimate the thickness at throat and
@@ -11,17 +11,18 @@ test=1;
 
     if test==1
     Ac=(2.4384/2)*(2.4384/2)*pi;
-    Pc=206.429*10^5%Pa
+    Pc=10*10^5%Pa
+  %  Pc=206.429*10^5%Pa
     At=0.26162*0.26162*pi; %m2
     Ae=1.15189*1.15189*pi; %m2
     gamma=1.23;%sp heat ratio
     Pe=1.01*10^5;% perfect expansion at sea level
-    rho=8193,2518 ; %material density Kg/m3 [Inconel 718]
+    rho=8193.2518 ; %material density Kg/m3 [Inconel 718]
     end
 %% Constants for Nozzle
     f    = 1.5; %Factor of safety
-    alpha=20;%Divergent half angle deg
-    beta=50;%Convergent half angle deg
+    alpha=25;%Divergent half angle deg
+    beta=39.4378;%Convergent half angle deg
     sigma=1.241056e+9;%N/m2 Ultimate stress of material[Inconel 718]
 %% IRT Calculations
 
@@ -44,10 +45,10 @@ W_c= rho*(pi*( ( (Rc+tc)^2 ) - (Rc^2) ) * h)
 %sigma = 748E+06; %Pa
 
 % Chamber pressure:
-p_c = 50E+05;   %Pa
+%p_c = 50E+05;   %Pa
 
 % Chamber radius:
-R_c = 0.265;    %m
+%R_c = 0.265;    %m
 
 % % Chamber length (for cylindrical chamber):
 % L_c = 0.97; %m
