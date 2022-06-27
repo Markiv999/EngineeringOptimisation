@@ -1,32 +1,43 @@
-function [Wvolume] = NozzleWeight(Pc,Ae,At,Ac,gamma,Pe,test)
+function [Wvolume] = NozzleWeight(x)
 %NOZZLEWEIGHT Calculates Nozzle Weight as a function of expansion ratio,
 %thickness and
 %   Assumptions: Thin shell theory to estimate the thickness at throat and
 %   exit, average taken as nozzle thickness.(Reasonable but only given for conical nozzle)
 %   Single material conical nozzle, temperature loads ignored(only somewhat reasonable for heat sink cooled nozzle, biggest assumption)
 %   References: Project RAND USAF, TRP Reader TU Delft(Chapter Ideal Rocket Theory, Design of thin shell structures)
+%%  Denormalize the Variables
+%[Pc,Ae,At]=Denormalize(x);
 
 %% Section for Debug
-test=1;
+
+test=0;
 
     if test==1
-    Ac=(2.4384/2)*(2.4384/2)*pi;
+    
     Pc=206.429*10^5%Pa
     At=0.26162*0.26162*pi; %m2
     Ae=1.15189*1.15189*pi; %m2
     gamma=1.23;%sp heat ratio
-    Pe=1.01*10^5;% perfect expansion at sea level
-    
+   
     end
+
 %% Constants for Nozzle
+    Pe=1.01*10^5;% perfect expansion at sea level
+    Ac=(2.4384/2)*(2.4384/2)*pi;
+    gamma=1.23;
     rho=8193.2518 ; %material density Kg/m3 [Inconel 718]
     f    = 1.5; %Factor of safety
     alpha=25;%Divergent half angle deg
     beta=39.4378;%Convergent half angle deg
     sigma=1.241056e+9;%N/m2 Ultimate stress of material[Inconel 718]
 %% IRT Calculations
+Van=sqrt(gamma) * ( 2 / (gamma+1) )^( (gamma+1)/(2*(gamma-1))  )
 
-Pt=Pc*( 2/ (gamma+1) )^( (gamma)/(gamma+1) )
+
+func= @(ynot) (Ae/At)- (Van / (sqrt( (2*gamma/(gamma-1)) * ((ynot/Pc)^(2/gamma)) * ((1-(ynot/Pc))^( (gamma-1)/gamma) ) ))) ; 
+ynot=1*10^5;
+Pe=fsolve(func,ynot);
+Pt=Pc*( 2/ (gamma+1) )^( (gamma)/(gamma+1) );
 
 %% Chamber Weight
 Rc=sqrt(Ac/pi);

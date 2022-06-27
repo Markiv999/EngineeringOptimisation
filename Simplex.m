@@ -1,8 +1,9 @@
-function [] = Simplex(Pc,Ae,At,Ac,gamma,Pe,test)
+function [] = Simplex()
 %SIMPLEX Summary of this function goes here
 %   Detailed explanation goes here
 
 %% Test
+test=1;
     if test==1
     Ac=(2.4384/2)*(2.4384/2)*pi;
     Pc=206.429*10^5%Pa
@@ -13,11 +14,19 @@ function [] = Simplex(Pc,Ae,At,Ac,gamma,Pe,test)
     end
 
 %% Initiation Of Optimisation Algorithm
-[x,lb,ub]=setinitialconditions()
+[x,lb,ub]=setinitialconditions();
 
 
 %% Normalization of Variables
-[x,lb,ub]=normalize(x,lb,ub)
+[x,lb,ub]=normalize(x,lb,ub);
 
+
+%% Call Matlab Simplex search Algorithm
+options = optimset('Display','iter','PlotFcns',@optimplotfval);
+
+x0 = fmincon(@(x)NozzleWeight(x),x,[],[],[],[],lb,ub,[],options)
+Pc=x0(1)
+At=x0(2)
+Ae=x0(3)
 end
 

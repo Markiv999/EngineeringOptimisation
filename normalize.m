@@ -7,11 +7,10 @@ global ref
 
 ref= x;
 
-    for i=1:size(x,2)
-    
-    
-    
-    end
+   x=ones(size(x))
+
+  lb=lb./ref;
+  ub=ub./ref;
    
 end
 
