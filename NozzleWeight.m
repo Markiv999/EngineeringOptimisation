@@ -6,7 +6,7 @@ function [total_mass] = NozzleWeight(x)
 %   Single material conical nozzle, temperature loads ignored(only somewhat reasonable for heat sink cooled nozzle, biggest assumption)
 %   References: TRP Reader TU Delft(Chapter Ideal Rocket Theory, Design of thin shell structures)
 %%  Denormalize the Variables
-%[Pc,Ae,At]=Denormalize(x);
+%[P_c,A_e,A_t]=Denormalize(x);
 
 %% Section for Debug
 
