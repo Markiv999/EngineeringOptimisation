@@ -10,8 +10,6 @@ function [g, h] = calc_constraints(x)
     % Motor perfomance values
     F = 1000E+03;
     Isp = 300;
-
-
     
     mass_flow = Gamma * P_c * A_t / sqrt(R * T_c);  % mass flow through the nozzle (kg/s)
     
@@ -27,7 +25,7 @@ function [g, h] = calc_constraints(x)
 
     u_e = sqrt(a * R * T_c * (1 - (P_e/P_c)^c));    % exit velocity of nozzle (m/s)
 
-    g(1) = 1 - (u_e/g + (P_e - P_a)*A_e/(mass_flow*g))/Isp;    % Isp constraint
+    g(1) = 1 - (u_e/g0 + (P_e - P_a)*A_e/(mass_flow*g0))/Isp;    % Isp constraint
 
     h(1) = 1 - (mass_flow * u_e + (P_e - P_a) * A_e)/F; % thrust constraint
 

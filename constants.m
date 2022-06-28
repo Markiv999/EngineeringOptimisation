@@ -6,7 +6,7 @@ gamma = 1.2;    % heat capacity ratio
 R = 287;    % specific gas constant
 T_c = 2000; % flame temperature (K)
 P_a = 1E+05;    % atmospheric pressure (bar)
-g = 9.81;   % acceleration due to gravity (m/s2)
+g0 = 9.81;   % acceleration due to gravity (m/s2)
 Gamma = sqrt(gamma) * (2/(gamma + 1))^((gamma + 1)/(2*gamma - 2));  % Vandenkerckhove function
 
 % Material properties
