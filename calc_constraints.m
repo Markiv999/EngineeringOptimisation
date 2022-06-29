@@ -9,7 +9,7 @@ function [g, h] = calc_constraints(x)
     
     % Motor perfomance values from IRT simulations
     thrust_ref = 2.357E+06;
-    Isp_ref = 350;
+    Isp_ref = 445.7119;
     
     mass_flow = Gamma * P_c * A_t / sqrt(R * T_c);  % mass flow through the nozzle (kg/s)
     
@@ -32,5 +32,4 @@ function [g, h] = calc_constraints(x)
     g(1) = 1 - Isp/Isp_ref;    % Isp constraint
     h(1) = 1 - thrust/thrust_ref; % thrust constraint
 
-    
 end
