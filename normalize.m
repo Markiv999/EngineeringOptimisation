@@ -1,4 +1,3 @@
-
 function [x,lb,ub] = normalize(x,lb,ub)
 %NORMALIZE Summary of this function goes here
 %   Detailed explanation goes here
