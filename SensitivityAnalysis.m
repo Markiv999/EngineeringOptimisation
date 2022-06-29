@@ -13,7 +13,7 @@ Sens_A_P_c=diff( calc_objective_sens(X_an), P_c)
 
 Sens_A_P_c=subs(Sens_A_P_c,[P_c,A_t,A_e],x)
 
-Sens_A_P_c=double(Sens_A_P_c)
+Sens_A_P_c=vpa(Sens_A_P_c)
 
 
 
@@ -21,7 +21,7 @@ Sens_A_A_t=diff( calc_objective_sens(X_an), A_t)
 
 Sens_A_A_t=subs(Sens_A_P_c,[P_c,A_t,A_e],x)
 
-Sens_A_A_t=double(Sens_A_P_c)
+Sens_A_A_t=vpa(Sens_A_P_c)
 
 
 
@@ -29,7 +29,7 @@ Sens_A_A_e=diff( calc_objective_sens(X_an), A_e)
 
 Sens_A_A_e=subs(Sens_A_P_c,[P_c,A_t,A_e],x)
 
-Sens_A_A_e=double(Sens_A_P_c)
+Sens_A_A_e=vpa(Sens_A_P_c)
 
 
 
@@ -48,4 +48,3 @@ for i=1:length(pert)
    sensP_c(:,i)=(calc_objective(x_03)-calc_objective(x))/pert(i);
 end
 
-subplot
