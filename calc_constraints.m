@@ -8,26 +8,29 @@ function [g, h] = calc_constraints(x)
     constants; % values of constants used
     
     % Motor perfomance values
-    F = 1000E+03;
-    Isp = 300;
+    thrust_ref = 2.357E+06;
+    Isp_ref = 350;
     
     mass_flow = Gamma * P_c * A_t / sqrt(R * T_c);  % mass flow through the nozzle (kg/s)
     
     % temp calculation variables
-    a = 2 * gamma / (gamma - 1);
-    b = 2 / gamma;
-    c = (gamma - 1) / (gamma);
+    a = 2 * gamma_val / (gamma_val - 1);
+    b = 2 / gamma_val;
+    c = (gamma_val - 1) / (gamma_val);
 
 
     % Calculating exit pressure
-    func = @(P_e) A_e/A_t - Gamma/(a * (P_e/P_c)^b * (1 - (P_e/P_c)^c));
+    func = @(P_e) A_e/A_t - Gamma/sqrt(a * (P_e/P_c)^b * (1 - (P_e/P_c)^c));
     P_e = fsolve(func, 1E+05);  % exit pressure of nozzle (Pa)
 
     u_e = sqrt(a * R * T_c * (1 - (P_e/P_c)^c));    % exit velocity of nozzle (m/s)
 
-    g(1) = 1 - (u_e/g0 + (P_e - P_a)*A_e/(mass_flow*g0))/Isp;    % Isp constraint
+    thrust = mass_flow * u_e + (P_e - P_a)*A_e;
+    Isp = thrust / (mass_flow * g0);
 
-    h(1) = 1 - (mass_flow * u_e + (P_e - P_a) * A_e)/F; % thrust constraint
+    g(1) = 1 - Isp/Isp_ref;    % Isp constraint
+
+    h(1) = 1 - thrust/thrust_ref; % thrust constraint
 
     
 end
