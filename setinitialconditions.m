@@ -3,7 +3,7 @@ function [x,lb,ub] = setinitialconditions()
 %   Detailed explanation goes here
  Pc=206.429*10^5;
 
- Ae=1.2192*1.2192*pi;
+ Ae=1.2192*1.2192*pi
    At=Ae/69;
  x=[Pc,At,Ae];
  lb=[0,0,0];

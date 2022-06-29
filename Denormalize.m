@@ -3,7 +3,7 @@ function [x] = Denormalize(x)
 %   Detailed explanation goes here
 global ref
 ref;
-x=ref.*x;
+x=ref.*x
 
 end
 
