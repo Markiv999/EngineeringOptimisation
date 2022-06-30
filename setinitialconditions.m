@@ -7,7 +7,7 @@ function [x,lb,ub] = setinitialconditions()
    At=Ae/69;
  x=[Pc,At,Ae];
  lb=[0,0,0];
- ub=[250,2*At,2*Ae];
+ ub=[250*10^5,2*At,2*Ae];
 
 end
 
