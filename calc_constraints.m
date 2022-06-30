@@ -29,7 +29,7 @@ function [g, h] = calc_constraints(x)
     Isp = thrust / (mass_flow * g0);    % Isp (s)
 
 
-    g(1) = 1 - Isp/Isp_ref   % Isp constraint
-    h(1) = 1 - thrust/thrust_ref% thrust constraint
+    g(1) = 1 - Isp/Isp_ref;   % Isp constraint
+    h(1) = 1 - thrust/thrust_ref; % thrust constraint
 
 end
