@@ -2,7 +2,6 @@
 
 [x,lb,ub]=setinitialconditions;
 
-[x,lb,ub] = normalize(x,lb,ub);
 
 global ref
 
