@@ -1,6 +1,7 @@
  function total_mass = calc_objective(x)
     % Function to calculate the value of the objective function at design
     % point x
+    
     P_c = x(1);
     A_t = x(2);
     A_e = x(3);

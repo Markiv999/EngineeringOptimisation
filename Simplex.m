@@ -14,9 +14,9 @@ function [] = Simplex()
 
 
 %% Call Matlab Simplex search Algorithm
-options = optimset('Display','iter-detailed','PlotFcns',@optimplotfval);
+options = optimset('Display','iter-detailed','PlotFcns',@optimplotfval,'PlotFcns',@optimplotconstrviolation);
 
-[x0,fval] = fmincon(@(x)calc_objective_sens(x),x,[],[],[],[],lb,ub,@(x)calc_constraints(x),options)
+[x0,fval] = fmincon(@(x)calc_objective(x),x,[],[],[],[],lb,ub,@(x)calc_constraints(x),options)
 
 global ref
 P_c=x0(1)*ref(1)

@@ -7,10 +7,9 @@ global ref
 
 ref= x;
 
-   x=ones(size(x))
-
-  lb=lb./ref
-  ub=ub./ref
+   x=x./ref
+  lb=lb./ref;
+  ub=ub./ref;
    
 end
 
