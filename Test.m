@@ -14,7 +14,7 @@ constants;
  lb= lb./x_ref;
  ub= ub./x_ref;
 
-calc_constraints(x)
+
 
 %% Call Matlab Simplex search Algorithm
 options = optimoptions('fmincon','Display','iter','Algorithm','sqp','plotfcns',@optimplotfval);

@@ -1,71 +1,74 @@
 clear all
 close all
+clc
 pert = 10.^[-15:-1];
 
-constants;
 
-[x,lb,ub]=setinitialconditions;
+constants;
+[xsca,lb,ub]=setinitialconditions;
 
 syms P_c A_t A_e;
 
 X_an=[P_c A_t A_e];
+
+
+xsca=scale(xsca, x_ref);
+
+Sens_A_P_c=diff(calc_objective_sens1(X_an), P_c)
+
+Sens_A_P_c=subs(Sens_A_P_c,[P_c,A_t,A_e],xsca)
+
+Sens_A_P_c=vpa(Sens_A_P_c)
+
+
+
+Sens_A_A_t=diff( calc_objective_sens1(X_an), A_t)
+
+Sens_A_A_t=subs(Sens_A_A_t,[P_c,A_t,A_e],xsca)
+
+Sens_A_A_t=vpa(Sens_A_A_t)
+
+
+
+Sens_A_A_e=diff( calc_objective_sens1(X_an), A_e)
+
+Sens_A_A_e=subs(Sens_A_A_e,[P_c,A_t,A_e],xsca)
+
+Sens_A_A_e=vpa(Sens_A_A_e)
+
+
 %% Analytical Sensitivities
-[x,lb,ub] = normalize(x,lb,ub);
-Sens_A_P_c=diff( calc_objective_sens(X_an), P_c)
-
-Sens_A_P_c=subs(Sens_A_P_c,[P_c,A_t,A_e],x)
-
-Sens_A_P_c=double(Sens_A_P_c)
-
-
-
-Sens_A_A_t=diff( calc_objective_sens(X_an), A_t)
-
-Sens_A_A_t=subs(Sens_A_A_t,[P_c,A_t,A_e],x)
-
-Sens_A_A_t=double(Sens_A_A_t)
-
-
-
-Sens_A_A_e=diff( calc_objective_sens(X_an), A_e)
-
-Sens_A_A_e=subs(Sens_A_A_e,[P_c,A_t,A_e],x)
-
-Sens_A_A_e=double(Sens_A_A_e)
-
-
-%% Analytical Sensitivities
-x=Denormalize(x)
-
+constants;
 %[SensPC2,SensAt2,SensAe2]= calc_derivatives(x)
 
+  xsca=scale(xsca, x_ref);
+  
 
 
-[x,lb,ub] = normalize(x,lb,ub);
 
 for i=1:length(pert)
-    x_01=[x(1)+pert(i),x(2),x(3)];
-   sensP_c_fw(:,i)=(calc_objective_sens(x_01)-calc_objective_sens(x))/pert(i);
+    x_01=[xsca(1)+pert(i),xsca(2),xsca(3)];
+   sensP_c_fw(:,i)=(calc_objective_sens(x_01)-calc_objective_sens(xsca))/pert(i);
 
-   x_02=[x(1),x(2)+pert(i),x(3)];
-   sensA_t_fw(:,i)=(calc_objective_sens(x_02)-calc_objective_sens(x))/pert(i);
+   x_02=[xsca(1),xsca(2)+pert(i),xsca(3)];
+   sensA_t_fw(:,i)=(calc_objective_sens(x_02)-calc_objective_sens(xsca))/pert(i);
 
-   x_03=[(1),x(2),x(3)+pert(i)];
-   sensA_e_fw(:,i)=(calc_objective_sens(x_03)-calc_objective_sens(x))/pert(i);
+   x_03=[(1),xsca(2),xsca(3)+pert(i)];
+   sensA_e_fw(:,i)=(calc_objective_sens(x_03)-calc_objective_sens(xsca))/pert(i);
 
 
-    x_01=[x(1)+pert(i),x(2),x(3)];
-    x_10=[x(1)-pert(i),x(2),x(3)];
+    x_01=[xsca(1)+pert(i),xsca(2),xsca(3)];
+    x_10=[xsca(1)-pert(i),xsca(2),xsca(3)];
    sensP_c_cf(:,i)=(calc_objective_sens(x_01)-calc_objective_sens(x_10))/(2*pert(i));
 
-     x_02=[x(1),x(2)+pert(i),x(3)];
-     x_20=[x(1),x(2)-pert(i),x(3)];
+     x_02=[xsca(1),xsca(2)+pert(i),xsca(3)];
+     x_20=[xsca(1),xsca(2)-pert(i),xsca(3)];
    
    sensA_t_cf(:,i)=(calc_objective_sens(x_02)-calc_objective_sens(x_20))/(2*pert(i));
 
 
-     x_03=[x(1),x(2),x(3)+pert(i)];
-     x_30=[x(1),x(2),x(3)-pert(i)];
+     x_03=[xsca(1),xsca(2),xsca(3)+pert(i)];
+     x_30=[xsca(1),xsca(2),xsca(3)-pert(i)];
    sensA_e_cf(:,i)=(calc_objective_sens(x_03)-calc_objective_sens(x_30))/(2*pert(i));
 
 end
