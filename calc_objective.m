@@ -1,14 +1,16 @@
- function total_mass = calc_objective(x)
+ function total_mass = calc_objective(x_scaled)
     % Function to calculate the value of the objective function at design
     % point x
+    constants;
     
+    x = descale(x_scaled, x_ref);
+
     P_c = x(1);
     A_t = x(2);
     A_e = x(3);
     
     % Importing motor constants
-    constants;
-    
+
     % IRT calculations
     mass_flow = Gamma * P_c * A_t / sqrt(R * T_c);  % mass flow through the nozzle (kg/s)
     A_c = (mass_flow * R * T_c)/(0.3 * P_c * sqrt(gamma_val*R*T_c));    % area of the chamber (m2)

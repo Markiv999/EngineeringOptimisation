@@ -1,11 +1,14 @@
-function [g, h] = calc_constraints(x)
+function [g, h] = calc_constraints(x_scaled)
     % Function to calculate constraints at design point x
+
+    constants;  % values of constants used
+    
+    x = descale(x_scaled, x_ref);
 
     P_c = x(1);
     A_t = x(2);
     A_e = x(3);
     
-    constants; % values of constants used
     
     % Motor perfomance values from IRT simulations
     thrust_ref = 2.357E+06;
@@ -20,8 +23,9 @@ function [g, h] = calc_constraints(x)
 
 
     % Calculating exit pressure
+    options = optimoptions('fsolve', 'Display', 'none');
     func = @(P_e) A_e/A_t - Gamma/sqrt(a * (P_e/P_c)^b * (1 - (P_e/P_c)^c));
-    P_e = fsolve(func, 1E+05);  % exit pressure of nozzle (Pa)
+    P_e = fsolve(func, 1E+05, options);  % exit pressure of nozzle (Pa)
 
     u_e = sqrt(a * R * T_c * (1 - (P_e/P_c)^c));    % exit velocity of nozzle (m/s)
     
