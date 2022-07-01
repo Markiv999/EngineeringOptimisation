@@ -7,9 +7,10 @@ global ref
 
 ref= x;
 
-   x=x./ref
+   x=x./ref;
   lb=lb./ref;
   ub=ub./ref;
+  
    
 end
 

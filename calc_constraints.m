@@ -1,6 +1,6 @@
 function [g, h] = calc_constraints(x)
     % Function to calculate constraints at design point x
-
+%  x=Denormalize(x);
     P_c = x(1);
     A_t = x(2);
     A_e = x(3);
