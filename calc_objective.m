@@ -10,8 +10,7 @@
     A_e = x(3);
     
     % Importing motor constants
-
-    % IRT calculations
+%%  % IRT calculations
     mass_flow = Gamma * P_c * A_t / sqrt(R * T_c);  % mass flow through the nozzle (kg/s)
     A_c = (mass_flow * R * T_c)/(0.3 * P_c * sqrt(gamma_val*R*T_c));    % area of the chamber (m2)
     R_c = sqrt(A_c / pi);   % chamber radius (m)
