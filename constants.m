@@ -22,3 +22,9 @@ alpha_val = 25; % divergent half angle (deg)
 beta = 39.4378; % convergent half angle (deg)
 
 f = 1.5;    % safety factor
+
+% Reference motor values
+P_c_ref = 206.429E+05;  % chamber pressure (Pa)
+A_t_ref = 0.0602;   % throat area (m2)
+A_e_ref = 4.1548;   % exit area (m2)
+x_ref = [P_c_ref, A_t_ref, A_e_ref];
