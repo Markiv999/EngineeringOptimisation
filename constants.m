@@ -33,9 +33,11 @@ x_ref = [P_c_ref, A_t_ref, A_e_ref];
 rho_N2O4 = 1.44246E+03; % N2O4 density (kg/m3)
 rho_UDMH = 791; % UDMH density (kg/m3)
 
-m_N2O4 = 21785.1852;    
-m_UDMH = 12814.8148;
+m_N2O4 = 105462.963;    
+m_UDMH = 62037.03704;
 
 R_tank = 1.9;   % fuel tank radii (m)
 rho_tank = 2810;
 sigma_tank = 275E+06;
+
+mass_dry = 17515;
