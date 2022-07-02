@@ -28,3 +28,14 @@ P_c_ref = 58E+05;  % chamber pressure (Pa)
 A_t_ref = 0.1886;   % throat area (m2)
 A_e_ref = 0.7698;   % exit area (m2)
 x_ref = [P_c_ref, A_t_ref, A_e_ref];
+
+% Fuel properties
+rho_N2O4 = 1.44246E+03; % N2O4 density (kg/m3)
+rho_UDMH = 791; % UDMH density (kg/m3)
+
+m_N2O4 = 21785.1852;    
+m_UDMH = 12814.8148;
+
+R_tank = 1.9;   % fuel tank radii (m)
+rho_tank = 2810;
+sigma_tank = 275E+06;
