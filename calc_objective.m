@@ -8,7 +8,6 @@
     P_c = x(1);
     A_t = x(2);
     A_e = x(3);
-    
     % Importing motor constants
 %%  % IRT calculations
     mass_flow = Gamma * P_c * A_t / sqrt(R * T_c);  % mass flow through the nozzle (kg/s)
