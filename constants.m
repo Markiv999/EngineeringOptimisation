@@ -15,7 +15,7 @@ rho_val =  8980;    % density (kg/m3)
 sigma_val = 748E+06;   % ultimate strength (N/m2)
 
 % Chamber constants
-L_c = 1.30;   % combustion chamber length (m);
+L_c = 1.3;   % combustion chamber length (m);
 
 % Nozzle constants
 alpha_val = 11.7; % divergent half angle (deg)  atand( (R_e - Rt)/L )

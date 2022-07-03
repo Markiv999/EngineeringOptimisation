@@ -19,11 +19,11 @@
     L_UDMH_tank = (1.1*V_UDMH - 4*pi*R_tank^3/3) / (pi * R_tank^2);
     L_N2O4_tank = (1.1*V_N2O4 - 4*pi*R_tank^3/3) / (pi * R_tank^2);
 
-    t_cyl = (P_c + 10E+05) * R_tank * 1.5/ sigma_tank;
+    t_cyl = (P_c) * R_tank * 1.5/ sigma_tank;
     t_sph = t_cyl / 2;
 
-    mass_UDMH_tank = 1.2 * (2*t_cyl*pi*R_tank*L_UDMH_tank + 4*t_sph*R_tank^2) * rho_tank;
-    mass_N2O4_tank = 1.2 * (2*t_cyl*pi*R_tank*L_N2O4_tank + 4*t_sph*R_tank^2) * rho_tank;
+    mass_UDMH_tank = (2*t_cyl*pi*R_tank*L_UDMH_tank + 4*t_sph*R_tank^2) * rho_tank;
+    mass_N2O4_tank = (2*t_cyl*pi*R_tank*L_N2O4_tank + 4*t_sph*R_tank^2) * rho_tank;
 
     
 %%  % IRT calculations
